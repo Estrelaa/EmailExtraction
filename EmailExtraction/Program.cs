@@ -14,6 +14,7 @@ namespace EmailExtraction
             string OpenFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
             Dictionary<string, int> addresses = new Dictionary<string, int>();
             int counter = 1;
+            int userFrequencyInput = 0;
 
             //Set up Regular Expressions, needed to find what addresses
             Regex softwireRX = new Regex(@"@[a-zA-Z0-9-_.]+",
@@ -50,6 +51,24 @@ namespace EmailExtraction
             foreach (KeyValuePair<string, int> key in addresses.OrderByDescending(key => key.Value))
             {
                 Console.WriteLine("Key {0}: {1}", counter++, key);
+            }
+
+
+            // Ask the user for the frequency, then if the frequency value is above the dict value, print it and the key.
+            Console.WriteLine("Enter Frequency: ");
+            userFrequencyInput = int.Parse(Console.ReadLine());
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Filtered with Frequency and ordered: ");
+            Console.WriteLine("");
+
+            foreach (KeyValuePair<string, int> key in addresses.OrderByDescending(key => key.Value))
+            {
+                if(key.Value > userFrequencyInput)
+                {
+                    Console.WriteLine("Key {0}: {1}", counter++, key);
+                }
+              
             }
 
             // Stops the console window from closing
