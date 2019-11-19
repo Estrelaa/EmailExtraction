@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace EmailExtraction
 {
@@ -8,26 +9,13 @@ namespace EmailExtraction
         static void Main(string[] args)
         {
             int Counter = 0;
+            Regex rx = new Regex(@"@softwire.com\s",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase);
             string OpenFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
+            MatchCollection matches = rx.Matches(OpenFile);
             string[] TextFromFile = OpenFile.Split();
 
-
-            for (int i = 0; i < TextFromFile.Length; i++ )
-            {
-                string temp = TextFromFile.GetValue(i).ToString();
-                if (temp.Length > 13)
-                {
-                    temp.Substring(temp.Length - 13);
-
-                    if (temp.Contains("@softwire.com"))
-                    {
-                        Counter++;
-                        Console.WriteLine(Counter);
-                    }
-                }
-                
-            }
-
+            Console.WriteLine(matches.Count);
             Console.ReadLine();
         }
     }
