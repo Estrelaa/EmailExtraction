@@ -14,19 +14,28 @@ namespace EmailExtraction
             Dictionary<string, int> addresses = new Dictionary<string, int>();
 
             //Set up Regular Expressions, needed to find what addresses
-            Regex softwireRX = new Regex(@"@softwire.com\s",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            Regex corndelRX = new Regex(@"@corndel.com\s",
+            Regex softwireRX = new Regex(@"@\s",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-            //Use the expressions to find matches
-            MatchCollection matchesSoftwire = softwireRX.Matches(OpenFile);
-            MatchCollection matchesCorndel = corndelRX.Matches(OpenFile);
+            //Use the expressions to find matches then update our dictionary
+            foreach(Match matchesSoftwire in softwireRX.Matches(OpenFile))
+            {
+                string temp = matchesSoftwire.Value;
+                if (addresses.ContainsKey(temp) == false)
+                {
+                    addresses.Add(temp, 1);
+                }
+                else
+                {
+                    addresses[temp] = addresses[temp] + 1;
+                }
+            }
 
-            addresses.Add("Softwire", matchesSoftwire.Count);
-            addresses.Add("Corndel", matchesCorndel.Count);
-
-            Console.WriteLine();
+            foreach (KeyValuePair<string, int> key in addresses)
+            {
+                Console.WriteLine("{0}", key);
+            }
+            
             Console.ReadLine();
         }
     }
