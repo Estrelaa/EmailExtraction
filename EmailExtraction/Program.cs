@@ -13,7 +13,6 @@ namespace EmailExtraction
 
             string OpenFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
             MatchCollection matches = rx.Matches(OpenFile);
-            string[] TextFromFile = OpenFile.Split();
 
             Console.WriteLine(matches.Count);
             Console.ReadLine();
