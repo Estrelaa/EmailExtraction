@@ -54,7 +54,8 @@ namespace EmailExtraction
             }
 
 
-            // Ask the user for the frequency, then if the frequency value is above the dict value, print it and the key.
+            // Reset the counter, then ask the user for the frequency, then if the frequency value is above the dict value, print it and the key.
+            counter = 1;
             Console.WriteLine("Enter Frequency: ");
             userFrequencyInput = int.Parse(Console.ReadLine());
             Console.WriteLine("");
