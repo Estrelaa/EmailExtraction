@@ -14,7 +14,7 @@ namespace EmailExtraction
             Dictionary<string, int> addresses = new Dictionary<string, int>();
 
             //Set up Regular Expressions, needed to find what addresses
-            Regex softwireRX = new Regex(@"@corndel.com\s",
+            Regex softwireRX = new Regex(@"@[a-zA-Z0-9-_.]+",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             /*Use the expressions to find matches then update our dictionary 
@@ -36,7 +36,7 @@ namespace EmailExtraction
             // print the addresses and how many times they appeared
             foreach (KeyValuePair<string, int> key in addresses)
             {
-                Console.WriteLine("{0}", key);
+                Console.WriteLine("Key: {0}", key);
             }
             
             Console.ReadLine();
