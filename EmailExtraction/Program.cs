@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EmailExtraction
 {
@@ -12,6 +13,7 @@ namespace EmailExtraction
             //Varaibles needed
             string OpenFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
             Dictionary<string, int> addresses = new Dictionary<string, int>();
+            int counter = 1;
 
             //Set up Regular Expressions, needed to find what addresses
             Regex softwireRX = new Regex(@"@[a-zA-Z0-9-_.]+",
@@ -38,7 +40,19 @@ namespace EmailExtraction
             {
                 Console.WriteLine("Key: {0}", key);
             }
-            
+
+            // Make two blank lines then print the addresses in value order
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("In order: ");
+            Console.WriteLine("");
+
+            foreach (KeyValuePair<string, int> key in addresses.OrderByDescending(key => key.Value))
+            {
+                Console.WriteLine("Key {0}: {1}", counter++, key);
+            }
+
+            // Stops the console window from closing
             Console.ReadLine();
         }
     }
