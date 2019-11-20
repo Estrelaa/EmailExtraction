@@ -10,10 +10,10 @@ namespace EmailExtraction
     {
         static void Main(string[] args)
         {
-            //Varaibles needed
-            string OpenFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
-            Dictionary<string, int> addresses = new Dictionary<string, int>();
-            int counter = 1;
+            //Variables needed
+            string openedTextFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
+            Dictionary<string, int> emailAddresses = new Dictionary<string, int>();
+            int frequencyOfAddressRank = 1;
             int userFrequencyInput = 0;
 
             //Set up Regular Expressions, needed to find what addresses
@@ -23,21 +23,21 @@ namespace EmailExtraction
             /*Use the expressions to find matches then update our dictionary 
              * depending on if they are already in it or not
              */
-            foreach(Match matchesSoftwire in softwireRX.Matches(OpenFile))
+            foreach(Match matchesSoftwire in softwireRX.Matches(openedTextFile))
             {
-                string temp = matchesSoftwire.Value;
-                if (addresses.ContainsKey(temp) == false)
+                string matchFound = matchesSoftwire.Value;
+                if (emailAddresses.ContainsKey(matchFound) == false)
                 {
-                    addresses.Add(temp, 1);
+                    emailAddresses.Add(matchFound, 1);
                 }
                 else
                 {
-                    addresses[temp] = addresses[temp] + 1;
+                    emailAddresses[matchFound] = emailAddresses[matchFound] + 1;
                 }
             }
 
             // print the addresses and how many times they appeared
-            foreach (KeyValuePair<string, int> key in addresses)
+            foreach (KeyValuePair<string, int> key in emailAddresses)
             {
                 Console.WriteLine("Key: {0}", key);
             }
@@ -48,14 +48,14 @@ namespace EmailExtraction
             Console.WriteLine("In order: ");
             Console.WriteLine("");
 
-            foreach (KeyValuePair<string, int> key in addresses.OrderByDescending(key => key.Value))
+            foreach (KeyValuePair<string, int> key in emailAddresses.OrderByDescending(key => key.Value))
             {
-                Console.WriteLine("Key {0}: {1}", counter++, key);
+                Console.WriteLine("Key {0}: {1}", frequencyOfAddressRank++, key);
             }
 
 
             // Reset the counter, then ask the user for the frequency, then if the frequency value is above the dict value, print it and the key.
-            counter = 1;
+            frequencyOfAddressRank = 1;
             Console.WriteLine("Enter Frequency: ");
             userFrequencyInput = int.Parse(Console.ReadLine());
             Console.WriteLine("");
@@ -63,11 +63,11 @@ namespace EmailExtraction
             Console.WriteLine("Filtered with Frequency and ordered: ");
             Console.WriteLine("");
 
-            foreach (KeyValuePair<string, int> key in addresses.OrderByDescending(key => key.Value))
+            foreach (KeyValuePair<string, int> key in emailAddresses.OrderByDescending(key => key.Value))
             {
                 if(key.Value > userFrequencyInput)
                 {
-                    Console.WriteLine("Key {0}: {1}", counter++, key);
+                    Console.WriteLine("Key {0}: {1}", frequencyOfAddressRank++, key);
                 }
               
             }
