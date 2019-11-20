@@ -11,9 +11,9 @@ namespace EmailExtraction
         static void Main(string[] args)
         {
             //Variables needed
-            string openedTextFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
+            string contentsOfTextFile = File.ReadAllText("C:\\Work\\Training\\EmailExtraction\\Sample.txt");
             Dictionary<string, int> emailAddresses = new Dictionary<string, int>();
-            int frequencyOfAddressRank = 1;
+            int frequencyOfEmailAddressRank = 1;
             int userFrequencyInput = 0;
 
             //Set up Regular Expressions, needed to find what addresses
@@ -23,7 +23,7 @@ namespace EmailExtraction
             /*Use the expressions to find matches then update our dictionary 
              * depending on if they are already in it or not
              */
-            foreach(Match matchesSoftwire in softwireRX.Matches(openedTextFile))
+            foreach(Match matchesSoftwire in softwireRX.Matches(contentsOfTextFile))
             {
                 string matchFound = matchesSoftwire.Value;
                 if (emailAddresses.ContainsKey(matchFound) == false)
@@ -50,12 +50,12 @@ namespace EmailExtraction
 
             foreach (KeyValuePair<string, int> key in emailAddresses.OrderByDescending(key => key.Value))
             {
-                Console.WriteLine("Key {0}: {1}", frequencyOfAddressRank++, key);
+                Console.WriteLine("Key {0}: {1}", frequencyOfEmailAddressRank++, key);
             }
 
 
             // Reset the counter, then ask the user for the frequency, then if the frequency value is above the dict value, print it and the key.
-            frequencyOfAddressRank = 1;
+            frequencyOfEmailAddressRank = 1;
             Console.WriteLine("Enter Frequency: ");
             userFrequencyInput = int.Parse(Console.ReadLine());
             Console.WriteLine("");
@@ -67,7 +67,7 @@ namespace EmailExtraction
             {
                 if(key.Value > userFrequencyInput)
                 {
-                    Console.WriteLine("Key {0}: {1}", frequencyOfAddressRank++, key);
+                    Console.WriteLine("Key {0}: {1}", frequencyOfEmailAddressRank++, key);
                 }
               
             }
