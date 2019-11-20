@@ -17,13 +17,13 @@ namespace EmailExtraction
             int userFrequencyInput = 0;
 
             //Set up Regular Expressions, needed to find what addresses
-            Regex softwireRX = new Regex(@"@[a-zA-Z0-9-_]+",
+            Regex FindEmailsExpression = new Regex(@"@[a-zA-Z0-9-_]+",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             /*Use the expressions to find matches then update our dictionary 
              * depending on if they are already in it or not
              */
-            foreach(Match matchesSoftwire in softwireRX.Matches(contentsOfTextFile))
+            foreach(Match matchesSoftwire in FindEmailsExpression.Matches(contentsOfTextFile))
             {
                 string matchFound = matchesSoftwire.Value;
                 if (emailAddresses.ContainsKey(matchFound) == false)
