@@ -17,15 +17,15 @@ namespace EmailExtraction
             int userFrequencyInput = 0;
 
             //Set up Regular Expressions, needed to find what addresses
-            Regex FindEmailsExpression = new Regex(@"@[a-zA-Z0-9-_]+",
+            Regex findEmailsExpression = new Regex(@"@[a-zA-Z0-9-_]+",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             /*Use the expressions to find matches then update our dictionary 
              * depending on if they are already in it or not
              */
-            foreach(Match matchesSoftwire in FindEmailsExpression.Matches(contentsOfTextFile))
+            foreach(Match emailFound in findEmailsExpression.Matches(contentsOfTextFile))
             {
-                string matchFound = matchesSoftwire.Value;
+                string matchFound = emailFound.Value;
                 if (emailAddresses.ContainsKey(matchFound) == false)
                 {
                     emailAddresses.Add(matchFound, 1);
